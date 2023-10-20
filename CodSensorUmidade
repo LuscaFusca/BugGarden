@@ -1,0 +1,25 @@
+#define pinSU A0 //Sensor umidade
+#define pinBomba 9 //Bomba d'agua
+
+int umidade;
+
+void setup(){
+  Serial.begin(9600);
+  pinMode(pinSU, INPUT);
+  pinMode(pinBomba, OUTPUT);
+}
+
+void loop(){
+  umidade = analogRead(pinSU);
+  int Porcento = map(umidade, 1023, 0, 0, 100);
+
+  Serial.print(Porcento);
+  Serial.println("%");
+  
+  if(Porcento <=10) {
+    digitalWrite(pinBomba, LOW);
+  }else{
+    digitalWrite(pinBomba, HIGH);
+  }
+  delay(250);
+}
